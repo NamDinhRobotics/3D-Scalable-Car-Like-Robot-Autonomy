@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Listen to messages from joysicks -->
+  <!-- <node pkg="joy" name="joy_node" type="joy_node"/> -->
+  <arg name="world_name" default="indoor"/>
+  <arg name="vehicleHeight" default="0.75"/>
+  <arg name="cameraOffsetZ" default="0"/>
+  <arg name="vehicleX" default="0"/>
+  <arg name="vehicleY" default="0"/>
+  <arg name="terrainZ" default="0"/>
+  <arg name="vehicleYaw" default="0"/>
+  <arg name="gazebo_gui" default="false"/>
+  <arg name="checkTerrainConn" default="false"/>
+
+  <!-- Launch a map from the maps folder-->
+  <arg name="map" default="$(find f1tenth_simulator)/maps/stata_basement.yaml"/>
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
+
+  <!-- Launch the racecar model -->
+  <include file="$(find f1tenth_simulator)/launch/racecar_model.launch"/>
+
+  <!-- Begin the simulator with the parameters from params.yaml -->
+  <node pkg="f1tenth_simulator" name="f1tenth_simulator" type="simulator" output="screen">
+    <rosparam command="load" file="$(find f1tenth_simulator)/params.yaml"/>
+  </node>
+
+
+  <include file="$(find local_planner)/launch/local_planner.launch" >
+    <arg name="cameraOffsetZ" value="$(arg cameraOffsetZ)"/>
+    <arg name="goalX" value="$(arg vehicleX)"/>
+    <arg name="goalY" value="$(arg vehicleY)"/>
+  </include>
+
+  <include file="$(find terrain_analysis)/launch/terrain_analysis_f1.launch" />
+
+  <include file="$(find terrain_analysis_ext)/launch/terrain_analysis_ext_f1.launch" >
+    <arg name="checkTerrainConn" value="$(arg checkTerrainConn)"/>
+  </include>
+
+  <include file="$(find far_planner)/launch/far_planner_f1.launch" >
+  </include>
+
+
+  <include file="$(find sensor_scan_generation)/launch/sensor_scan_generation.launch" />
+
+  <!--
+  <include file="$(find visualization_tools)/launch/visualization_tools.launch" >
+    <arg name="world_name" value="$(arg world_name)"/>
+  </include>
+  -->
+  <!-- Launch RVIZ -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find f1tenth_simulator)/launch/rviz_f1_sim.rviz" output="screen"/>
+
+</launch>

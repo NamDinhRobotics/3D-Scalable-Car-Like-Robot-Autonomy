@@ -1,0 +1,18 @@
+<launch>
+  <!-- Publish a static transform from /map to /odom -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_map_to_odom3" args="0 0 0 0 0 0 /map /odom" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_odom_to_cam3" args="0 0 0 0 0 0 /odom /camera_init" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_body_to_livox3" args="0 0 0 0 0 0 /body /livox_frame" />
+
+  <node pkg="base_controller" type="pure_pursuit" name="pure_pursuit_controller" output="screen">
+    <param name="lookahead_distance" value="1.5"/>
+    <param name="min_lookahead_distance" value="0.5"/>
+    <param name="wheel_base" value="0.36"/>
+    <param name="odometry_topic" value="/odom"/> <!-- Change this to your odometry topic , odometry_livox for livox, odom for sim  -->
+    <param name="path_topic" value="/loaded_path"/>
+
+    <param name="max_speed" value="3.5"/>
+    <param name="min_speed" value="1.3"/>
+    <param name="max_steering_angle" value="0.5"/>
+  </node>
+</launch>
