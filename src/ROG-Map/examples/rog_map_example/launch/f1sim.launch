@@ -1,0 +1,11 @@
+<launch>
+    <node name="rm_node" pkg="rog_map_example" type="marsim_example_node" output="log">
+<!--        remember to load the parameters like here!!-->
+	
+        <rosparam command="load" file="$(find rog_map_example)/config/f1sim.yaml"/>
+    </node>
+    
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_map_to_cam" args="0 0 0 0 0 0 /world /map" />
+
+
+</launch>
