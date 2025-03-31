@@ -14,6 +14,8 @@
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
     <param name="odom_topic" type="string" value="/odom" />
     <param name="lidar_topic" type="string" value="/cloud_laser" />
+    
+    <remap from="/terrain_map" to="/rm_node/rog_map/occ"/>
 
     <param name="pathFolder" type="string" value="$(find local_planner)/paths" />
     <param name="vehicleLength" type="double" value="0.6" />
