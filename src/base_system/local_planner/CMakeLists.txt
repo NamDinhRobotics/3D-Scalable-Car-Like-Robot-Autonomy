@@ -52,9 +52,13 @@ link_directories(
 add_executable(localPlanner src/localPlanner.cpp)
 add_executable(pathFollower src/pathFollower.cpp)
 
+add_executable(pcl_to_laserscan_node src/pcl_to_laserscan_node.cpp)
+
 ## Specify libraries to link a library or executable target against
 target_link_libraries(localPlanner ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(pathFollower ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
+target_link_libraries(pcl_to_laserscan_node ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 install(TARGETS localPlanner pathFollower
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

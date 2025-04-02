@@ -11,12 +11,27 @@
   <arg name="goalX" default="0"/>
   <arg name="goalY" default="0"/>
 
+
+  <node pkg="local_planner" type="pcl_to_laserscan_node" name="pcl_to_laserscan_node" output="screen">
+    <remap from="point_cloud_topic" to="/terrain_map" />
+    <remap from="laser_scan_topic" to="/scan_rog" />
+    <remap from="odom_topic" to="/odom" />
+    <param name="base_frame" value="base_link" />
+    <param name="min_height" value="-0.1" />
+    <param name="max_height" value="10.0" />
+    <param name="angle_min" value="-2.094" /> <!-- -120 degrees -->
+    <param name="angle_max" value="2.094" />  <!-- +120 degrees -->
+    <param name="angle_increment" value="0.017" /> <!-- ~1 degree -->
+    <param name="range_min" value="0.15" />
+    <param name="range_max" value="50.0" />
+  </node>
+
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
     <param name="odom_topic" type="string" value="/odom" />
     <param name="lidar_topic" type="string" value="/cloud_laser" />
-    
+    <!--
     <remap from="/terrain_map" to="/rm_node/rog_map/occ"/>
-
+    -->
     <param name="pathFolder" type="string" value="$(find local_planner)/paths" />
     <param name="vehicleLength" type="double" value="0.6" />
     <param name="vehicleWidth" type="double" value="0.6" />

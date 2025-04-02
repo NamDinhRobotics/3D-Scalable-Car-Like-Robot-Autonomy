@@ -32,6 +32,8 @@ Panels:
         - /PointCloud21
         - /PointCloud22
         - /PointCloud23
+        - /LaserScan1
+        - /LaserScan2
       Splitter Ratio: 0.47647058963775635
     Tree Height: 719
   - Class: rviz/Selection
@@ -206,14 +208,14 @@ Visualization Manager:
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 2.868654727935791
-            Min Value: -7.330436706542969
+            Max Value: 5.098362445831299
+            Min Value: -5.099115371704102
             Value: true
           Axis: X
           Channel Name: intensity
           Class: rviz/PointCloud2
           Color: 255; 255; 255
-          Color Transformer: AxisColor
+          Color Transformer: FlatColor
           Decay Time: 0
           Enabled: true
           Invert Rainbow: false
@@ -224,8 +226,8 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.20000000298023224
-          Style: Boxes
+          Size (m): 0.05000000074505806
+          Style: Spheres
           Topic: /terrain_map
           Unreliable: false
           Use Fixed Frame: true
@@ -234,8 +236,8 @@ Visualization Manager:
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 3.068026542663574
-            Min Value: 1.718630313873291
+            Max Value: 0.762499988079071
+            Min Value: 0.18590879440307617
             Value: true
           Axis: X
           Channel Name: intensity
@@ -302,8 +304,6 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        drone:
-          Value: true
         front_left_hinge:
           Value: true
         front_left_wheel:
@@ -320,11 +320,7 @@ Visualization Manager:
           Value: true
         sensor:
           Value: true
-        sensor_at_scan:
-          Value: true
         vehicle:
-          Value: true
-        world:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -333,29 +329,24 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          drone:
-            {}
-          map:
-            base_link:
-              back_left_wheel:
+        map:
+          base_link:
+            back_left_wheel:
+              {}
+            back_right_wheel:
+              {}
+            front_left_hinge:
+              front_left_wheel:
                 {}
-              back_right_wheel:
+            front_right_hinge:
+              front_right_wheel:
                 {}
-              front_left_hinge:
-                front_left_wheel:
-                  {}
-              front_right_hinge:
-                front_right_wheel:
-                  {}
-              laser:
-                sensor:
-                  {}
-                vehicle:
-                  {}
-              laser_model:
+            laser:
+              sensor:
                 {}
-            sensor_at_scan:
+              vehicle:
+                {}
+            laser_model:
               {}
       Update Interval: 0
       Value: true
@@ -622,7 +613,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -637,28 +628,19 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Class: rviz/MarkerArray
       Enabled: true
       Marker Topic: /rm_node/rog_map/map_bound
       Name: MarkerArray
       Namespaces:
-        ESDF Map Text: true
-        ESDF Updating Range: true
-        Local Map Origin: true
-        Local Map Origin_text: true
-        Local Map Range: true
-        Local Map Range Text: true
-        Updating Range: true
-        Updating Range Text: true
-        Visualization Range: true
-        Visualization Range Text: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 1.9500000476837158
+        Max Value: 1.850000023841858
         Min Value: -0.550000011920929
         Value: true
       Axis: Z
@@ -667,7 +649,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: AxisColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -682,7 +664,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -711,6 +693,62 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 0; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 5
+      Size (m): 0.10000000149011612
+      Style: Boxes
+      Topic: /scan_rog
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 0; 0
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -743,7 +781,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 2.4106762409210205
+      Distance: 24.610519409179688
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -751,17 +789,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
+        X: -4.436882495880127
+        Y: -3.7800490856170654
         Z: 0
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3653981685638428
-      Target Frame: base_link
-      Yaw: 6.213583469390869
+      Pitch: 1.5547963380813599
+      Target Frame: world
+      Yaw: 3.3385579586029053
     Saved: ~
 Window Geometry:
   Displays:
