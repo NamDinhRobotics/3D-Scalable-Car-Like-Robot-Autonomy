@@ -14,12 +14,12 @@ public:
         // Initialize parameters
         nh_.param("goal_tolerance", goal_tolerance_, 0.1); // Goal tolerance (m)
         nh_.param("max_speed", max_speed_, 0.5);      // Max linear speed (m/s)
-        nh_.param("min_speed", min_speed_, 0.22);     // Minimum speed (m/s)
+        nh_.param("min_speed", min_speed_, 0.5);     // Minimum speed (m/s)
         nh_.param("max_steering_angle", max_steering_angle_, 0.5); // Max steering angle (radians)
 
         // Subscribers
         goal_sub_ = nh_.subscribe("/move_base_simple/goal", 20, &NavGoalFollower::goalCallback, this);
-        odom_sub_ = nh_.subscribe("/odometry_livox", 20, &NavGoalFollower::odomCallback, this);
+        odom_sub_ = nh_.subscribe("/pointlio/odom", 20, &NavGoalFollower::odomCallback, this);
 
         // Publisher
         ackermann_pub_ = nh_.advertise<ackermann_msgs::AckermannDriveStamped>("/ackermann_cmd", 20);

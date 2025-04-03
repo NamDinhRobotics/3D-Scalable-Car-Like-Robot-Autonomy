@@ -1,6 +1,6 @@
 
 # erpm (electrical rpm) = speed_to_erpm_gain * speed (meters / second) + speed_to_erpm_offset
-speed_to_erpm_gain: 4000
+speed_to_erpm_gain: 5263 # 0.5 --> 0.38
 speed_to_erpm_offset: 0.0
 
 # Set gains for converting acceleration to current and brake control values
@@ -17,7 +17,7 @@ max_acceleration: 2.5 # meters/second^2
 throttle_smoother_rate: 75.0 # messages/sec
 
 # servo value (0 to 1) =  steering_angle_to_servo_gain * steering angle (radians) + steering_angle_to_servo_offset
-steering_angle_to_servo_gain: -1.2135 # to deg = -57.2958
+steering_angle_to_servo_gain: 1.2135 # to deg = -57.2958
 steering_angle_to_servo_offset: 0.5304 # to pwm = 1530
 # let use PWM for servo control = 1000 to 2000,
 # 1500 is the center
