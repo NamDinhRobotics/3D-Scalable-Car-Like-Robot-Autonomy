@@ -17,6 +17,7 @@ public:
         sub_cloud_ = nh_.subscribe("point_cloud_topic", 1, &PointCloudToLaserScan::cloudCallback, this);
         sub_odom_ = nh_.subscribe("odom_topic", 1, &PointCloudToLaserScan::odomCallback, this);
         pub_ = nh_.advertise<sensor_msgs::LaserScan>("laser_scan_topic", 1);
+        pub_transformed_cloud_ = nh_.advertise<sensor_msgs::PointCloud2>("transformed_cloud_topic", 1);
 
         nh_.param("base_frame", base_frame_, std::string("base_link"));
         nh_.param("min_height", min_height_, -0.1);
@@ -65,6 +66,14 @@ private:
             return;
         }
 
+        //publish transformed point cloud for debugging
+        sensor_msgs::PointCloud2 transformed_cloud_msg;
+        pcl::toROSMsg(transformed_cloud, transformed_cloud_msg);
+        transformed_cloud_msg.header = cloud_msg->header;
+        transformed_cloud_msg.header.frame_id = base_frame_;
+        transformed_cloud_msg.header.stamp = ros::Time::now();
+        pub_transformed_cloud_.publish(transformed_cloud_msg);
+
         // Initialize LaserScan message
         sensor_msgs::LaserScan scan;
         scan.header = cloud_msg->header;
@@ -103,7 +112,7 @@ private:
 
     ros::NodeHandle nh_;
     ros::Subscriber sub_cloud_, sub_odom_;
-    ros::Publisher pub_;
+    ros::Publisher pub_, pub_transformed_cloud_;
     tf2_ros::Buffer tf_buffer_;
     tf2_ros::TransformListener tf_listener_;
     nav_msgs::Odometry latest_odom_;

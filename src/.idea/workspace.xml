@@ -14,7 +14,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6dfbade6-b191-4197-ad32-3846a6866eed" name="Changes" comment="vesc">
-      <change beforePath="$PROJECT_DIR$/hardware_base/vesc_system/vesc/vesc_ackermann/config/vesc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hardware_base/vesc_system/vesc/vesc_ackermann/config/vesc.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_system/local_planner/launch/local_planner_f1.launch" beforeDir="false" afterPath="$PROJECT_DIR$/base_system/local_planner/launch/local_planner_f1.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_system/local_planner/src/pcl_to_laserscan_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/base_system/local_planner/src/pcl_to_laserscan_node.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +32,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/NamDinhRobotics/3D-Scalable-Car-Like-Robot-Autonomy.git",
+    "accountId": "58bce53a-db27-4c6b-849b-bae6965be3bc"
+  }
+}]]></component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -72,7 +80,7 @@
       <workItem from="1743508807096" duration="1080000" />
       <workItem from="1743509906288" duration="5969000" />
       <workItem from="1743574164305" duration="10307000" />
-      <workItem from="1743650000711" duration="3323000" />
+      <workItem from="1743650000711" duration="5274000" />
     </task>
     <task id="LOCAL-00001" summary="add_pcl_laser">
       <option name="closed" value="true" />
@@ -98,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743653128356</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="vesc">
+      <option name="closed" value="true" />
+      <created>1743653739542</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743653739542</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VCPKGProject">

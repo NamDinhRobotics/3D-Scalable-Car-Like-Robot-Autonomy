@@ -14,16 +14,18 @@
 
   <node pkg="local_planner" type="pcl_to_laserscan_node" name="pcl_to_laserscan_node" output="screen">
     <remap from="point_cloud_topic" to="/terrain_map" />
+    <!-- <remap from="point_cloud_topic" to="/transformed_cloud_topic" /> -->
     <remap from="laser_scan_topic" to="/scan_rog" />
+    <remap from="transformed_cloud_topic" to="/transformed_cloud_topic" />
     <remap from="odom_topic" to="/odom" />
     <param name="base_frame" value="base_link" />
-    <param name="min_height" value="-0.1" />
+    <param name="min_height" value="-1.1" />
     <param name="max_height" value="10.0" />
-    <param name="angle_min" value="-2.094" /> <!-- -120 degrees -->
-    <param name="angle_max" value="2.094" />  <!-- +120 degrees -->
+    <param name="angle_min" value="-1.57079632679" /> <!-- -180 degrees -->
+    <param name="angle_max" value="1.57079632679" />  <!-- +180 degrees -->
     <param name="angle_increment" value="0.017" /> <!-- ~1 degree -->
-    <param name="range_min" value="0.15" />
-    <param name="range_max" value="50.0" />
+    <param name="range_min" value="0.1" />
+    <param name="range_max" value="100.0" />
   </node>
 
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
