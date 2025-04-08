@@ -6,24 +6,24 @@
 
 astar:
   visualize_process_en: true
-  map_voxel_num: [200,200,100]
+  map_voxel_num: [100,100,50]
   # if allow diagonal expansion
   allow_diag: true
   # heu type: DIAG = 0, MANH = 1, EUCL = 2
   heu_type: 2
 
-  example_start: [ -12.730165, -8.932557, 1.000000]
-  example_goal: [15.443455, 0.365021, 1.000000 ]
+  example_start: [ 3.349921, 2.859736, 0.500000]
+  example_goal: [-3.123497, -4.046350, 0.500000 ]
 
 
 rog_map:
 
-  resolution: 0.1
+  resolution: 0.2
   inflation_resolution: 0.2
   inflation_step: 1
   unk_inflation_en: false
   unk_inflation_step: 1
-  map_size: [ 50,50,6 ]
+  map_size: [ 10,10,5 ]
   # If the map rolling is disable, the map origin [m] should be set.
   fix_map_origin: [ 0,0,0 ]
   frontier_extraction_en: true

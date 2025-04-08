@@ -98,6 +98,7 @@ private:
 
     // Define the point cloud publisher
     ros::Publisher pointcloud_pub;
+    ros::Publisher pointcloud_laser_pub;
     bool enable_pcl{};
 
     // publisher for map with obstacles
@@ -428,13 +429,13 @@ public:
                 sensor_msgs::PointCloud2 pointcloud_msg;
 
                 // Parameters for simulating 3D LiDAR
-                double vertical_fov_min = -5.0 * M_PI / 180.0; // -15 degrees in radians
-                double vertical_fov_max = 20.0 * M_PI / 180.0;  // 15 degrees in radians
-                int num_vertical_beams = 32;                    // Number of vertical beams (e.g., 32 beams)
+                double vertical_fov_min = -5.0 * M_PI / 180.0; // -5 degrees in radians
+                double vertical_fov_max = 20.0 * M_PI / 180.0; // 20 degrees in radians
+                int num_vertical_beams = 18; // Number of vertical beams
                 double vertical_angle_increment = (vertical_fov_max - vertical_fov_min) / (num_vertical_beams - 1);
 
                 // Noise parameters
-                double range_noise_std = 0.02;  // Standard deviation for range noise
+                double range_noise_std = 0.02; // Standard deviation for range noise
                 double angle_noise_std = 0.001; // Standard deviation for angle noise
 
                 // Random number generators for noise
@@ -470,7 +471,7 @@ public:
                 // Convert the PCL point cloud to a PointCloud2 message
                 pcl::toROSMsg(point_cloud, pointcloud_msg);
                 pointcloud_msg.header.stamp = timestamp;
-                pointcloud_msg.header.frame_id = "map"; // Assume the map frame is the global frame
+                pointcloud_msg.header.frame_id = map_frame; // Assume the map frame is the global frame
 
                 // Publish the point cloud
                 pointcloud_pub.publish(pointcloud_msg);

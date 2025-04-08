@@ -27,16 +27,15 @@
 
   	
   
-    <include file="$(find local_planner)/launch/local_planner_f1.launch" >
+  <include file="$(find local_planner)/launch/local_planner_f1.launch" >
     <arg name="cameraOffsetZ" value="$(arg cameraOffsetZ)"/>
     <arg name="goalX" value="$(arg vehicleX)"/>
     <arg name="goalY" value="$(arg vehicleY)"/>
   </include>
-
-
-
-  <include file="$(find sensor_scan_generation)/launch/sensor_scan_generation.launch" />
   
+
+  <include file="$(find rog_map_example)/launch/f1sim.launch" />
+
 
   <!--
   <include file="$(find visualization_tools)/launch/visualization_tools.launch" >

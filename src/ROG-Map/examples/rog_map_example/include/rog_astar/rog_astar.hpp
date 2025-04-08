@@ -277,7 +277,10 @@ namespace rog_astar {
                     retrievePath(current, node_path);
                     ConvertNodePathToPointPath(node_path, final_path_);
                     vis_ptr_->visualize_path(final_path_, "astar_final_path");
-                    return true;
+                    ros::Time time_2 = ros::Time::now();
+    		     double search_time = (time_2 - time_1).toSec();
+    		     ROS_INFO("AStar search succeeded in %.3f seconds with %d iterations", search_time, num_iter);
+    		     return true;
                 }
 
 
@@ -350,6 +353,7 @@ namespace rog_astar {
                             }
                         }
                 ros::Time time_2 = ros::Time::now();
+                
                 if (!cfg_.visualize_process_en && (time_2 - time_1).toSec() > ps_.max_time) {
                     ROS_WARN("Failed in A star path searching !!! %lf seconds time limit exceeded.", ps_.max_time);
                     return false;

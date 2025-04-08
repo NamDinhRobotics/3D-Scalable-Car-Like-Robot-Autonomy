@@ -6,18 +6,18 @@
 
 rog_map:
   resolution: 0.1
-  inflation_resolution: 0.1
-  inflation_step: 1
+  inflation_resolution: 0.2
+  inflation_step: 2
   unk_inflation_en: false
   unk_inflation_step: 1
   map_size: [ 50,50,6 ]
   # If the map rolling is disable, the map origin [m] should be set.
   fix_map_origin: [ 0,0,0 ]
-  frontier_extraction_en: true
+  frontier_extraction_en: false
 
   # Virtual ceil and ground
-  virtual_ceil_height: 9999
-  virtual_ground_height: -9999
+  virtual_ceil_height: 5 # 3.5
+  virtual_ground_height: -0.5 # -0.1
 
   block_inf_pt: false
   kd_tree_en: false
@@ -63,7 +63,7 @@ rog_map:
   intensity_thresh: -10
   # The temporal downsample rate for input point cloud.
   #  e.g. if set to k, the point cloud will be downsampled to 1/k.
-  point_filt_num: 15
+  point_filt_num: 15 # 1
 
   # Probabilistc update
   raycasting:

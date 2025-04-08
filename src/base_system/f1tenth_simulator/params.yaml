@@ -95,6 +95,7 @@ map_topic: "/map"
 distance_transform_topic: "/dt"
 scan_topic: "/scan"
 cloud_laser: "/cloud_laser"
+cloud_laser_new: "/cloud_laser_new"
 enable_pcl: true
 pose_topic: "/pose"
 ground_truth_pose_topic: "/gt_pose"

@@ -14,11 +14,11 @@
 	map_sliding_en: 1
 	fix_map_origin: 0 0 0
 	visualization_range: 50 50  6
-	virtual_ceil_height: 9998.9
-	virtual_ground_height: -9998.9
+	virtual_ceil_height: 4.6
+	virtual_ground_height: 0
 	batch_update_size: 1
-	frontier_extraction_en: 1
+	frontier_extraction_en: 0
 [InfMap]
-	resolution: 0.1
-	map_size_i: 505 505  65
-	map_size_d: 50.5 50.5  6.5
+	resolution: 0.2
+	map_size_i: 257 257  37
+	map_size_d: 51.4 51.4  7.4

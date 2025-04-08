@@ -1,0 +1,9 @@
+robot_base_frame: base_link
+robot_radius: 1.0  # Half of the length (0.7m) as an approximation; adjust if needed
+footprint: [[-0.5, -0.5], [-0.5, 0.5], [0.5, 0.5], [0.5, -0.5]]  # Rectangle: 0.8m x 0.8m
+
+obstacle_range: 3.0
+raytrace_range: 4.0
+
+observation_sources: laser_scan_sensor
+laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: /scan_cloud, marking: true, clearing: true}

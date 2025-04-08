@@ -1,0 +1,24 @@
+TebLocalPlannerROS:
+  odom_topic: /odom
+  map_frame: /map
+
+  # Robot
+  max_vel_x: 1.0            # Maximum forward velocity (m/s)
+  max_vel_x_backwards: 0.2  # Maximum backward velocity (m/s)
+  max_vel_theta: 1.0        # Maximum angular velocity (rad/s)
+  acc_lim_x: 0.5            # Acceleration limit (m/s^2)
+  acc_lim_theta: 0.5        # Angular acceleration limit (rad/s^2)
+  min_turning_radius: 0.514 # Minimum turning radius (m), calculated from wheelbase and max steering angle
+  wheelbase: 0.36           # Distance between front and rear axles (m)
+  cmd_angle_instead_rotvel: false  # Output steering angle instead of angular velocity
+
+  # Goal tolerance
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+  free_goal_vel: false
+
+  # Trajectory
+  dt_ref: 0.3
+  dt_hysteresis: 0.1
+  max_global_plan_lookahead_dist: 3.0
+  global_plan_viapoint_sep: 0.1

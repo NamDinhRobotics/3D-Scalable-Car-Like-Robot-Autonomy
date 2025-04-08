@@ -1,0 +1,36 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="map_file" default="$(find nav_ted_planner)/config/map.yaml" />
+
+  <!-- Map Server: Load the occupancy grid map -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- AMCL: Localization using the occupancy grid map -->
+  <node pkg="amcl" type="amcl" name="amcl">
+    <param name="odom_frame_id" value="odom" />
+    <param name="base_frame_id" value="base_link" />
+    <param name="global_frame_id" value="map" />
+    <param name="initial_pose_x" value="0.0" />
+    <param name="initial_pose_y" value="0.0" />
+    <param name="initial_pose_a" value="0.0" />
+  </node>
+
+  <!-- Move Base: Navigation stack -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find nav_ted_planner)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find nav_ted_planner)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find nav_ted_planner)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/teb_local_planner_params.yaml" command="load" />
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="10.0" />
+  </node>
+
+  <!-- Twist to Ackermann Converter -->
+  <node pkg="my_robot_navigation" type="twist_to_ackermann.py" name="twist_to_ackermann" output="screen">
+    <param name="wheelbase" value="0.7" /> <!-- Length of the vehicle -->
+    <param name="twist_cmd_topic" value="/cmd_vel" />
+    <param name="ackermann_cmd_topic" value="/ackermann_cmd" />
+    <param name="frame_id" value="odom" />
+  </node>
+</launch>
