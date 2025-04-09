@@ -13,7 +13,7 @@
   <arg name="checkTerrainConn" default="false"/>
 
   <!-- Launch a map from the maps folder-->
-  <arg name="map" default="$(find f1tenth_simulator)/maps/levinelobby.yaml"/>
+  <arg name="map" default="$(find f1tenth_simulator)/maps/berlin.yaml"/>
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
 
   <!-- Launch the racecar model -->
