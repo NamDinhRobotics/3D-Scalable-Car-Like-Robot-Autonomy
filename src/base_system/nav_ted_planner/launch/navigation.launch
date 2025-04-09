@@ -22,8 +22,9 @@
     <rosparam file="$(find nav_ted_planner)/config/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find nav_ted_planner)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find nav_ted_planner)/config/global_planner_params.yaml" command="load" />
-    
+
     <rosparam file="$(find nav_ted_planner)/config/teb_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/navfn_params.yaml" command="load" />
     <param name="base_global_planner" value="navfn/NavfnROS" /> 
     <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> --> <!-- Enable if using A star-->
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
