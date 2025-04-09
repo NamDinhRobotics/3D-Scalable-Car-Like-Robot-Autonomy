@@ -25,7 +25,7 @@
     
     <rosparam file="$(find nav_ted_planner)/config/teb_local_planner_params.yaml" command="load" />
     <param name="base_global_planner" value="navfn/NavfnROS" /> 
-    <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> --> <!-- Change here -->
+    <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> --> <!-- Enable if using A star-->
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
     <param name="controller_frequency" value="10.0" />
   </node>
