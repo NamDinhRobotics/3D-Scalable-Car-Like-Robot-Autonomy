@@ -1,15 +1,31 @@
 <launch>
 
   <!-- AMCL: Localization using the occupancy grid map  -51.224998, -51.224998, 0.000000  -->
-  <node pkg="amcl" type="amcl" name="amcl">
-    <remap from="scan" to="scan_cloud"/>
-    <param name="odom_frame_id" value="odom" />
-    <param name="base_frame_id" value="base_link" />
-    <param name="global_frame_id" value="map" />
-    <param name="initial_pose_x" value="0.22" />
-    <param name="initial_pose_y" value="0.22" />
-    <param name="initial_pose_a" value="0.0" />
-  </node>
+    <node pkg="amcl" type="amcl" name="amcl">
+        <remap from="scan" to="scan_cloud"/>
+        <param name="odom_frame_id" value="odom" />
+        <param name="base_frame_id" value="base_link" />
+        <param name="global_frame_id" value="map" />
+        <param name="initial_pose_x" value="0.22" />
+        <param name="initial_pose_y" value="0.22" />
+        <param name="initial_pose_a" value="0.0" />
+        <param name="initial_cov_xx" value="0.5" />
+        <param name="initial_cov_yy" value="0.5" />
+        <param name="initial_cov_aa" value="0.5" />
+        <!-- Odometry tuning -->
+        <param name="odom_model_type" value="diff" />
+        <param name="odom_alpha1" value="0.2" />
+        <param name="odom_alpha2" value="0.2" />
+        <param name="odom_alpha3" value="0.2" />
+        <param name="odom_alpha4" value="0.2" />
+        <param name="odom_frame_rate" value="20.0" />
+        <!-- Particle filter -->
+        <param name="min_particles" value="500" />
+        <param name="max_particles" value="5000" />
+        <param name="update_min_d" value="0.1" />
+        <param name="update_min_a" value="0.2" />
+        <param name="resample_interval" value="1" />
+    </node>
 
   
   <!-- <node pkg="tf" type="static_transform_publisher" name="sensorToLaser" args="0 0 0 0 0 0 /map /odom 1000"/> -->

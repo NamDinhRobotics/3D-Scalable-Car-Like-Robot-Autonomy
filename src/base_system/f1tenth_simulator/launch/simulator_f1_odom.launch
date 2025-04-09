@@ -38,11 +38,21 @@
       <param name="range_max" value="100.0" />
    </node>
 
-  <!--
-  <include file="$(find visualization_tools)/launch/visualization_tools.launch" >
-    <arg name="world_name" value="$(arg world_name)"/>
-  </include>
-  -->
+
+    <include file="$(find local_planner)/launch/local_planner_f1.launch" >
+        <arg name="cameraOffsetZ" value="$(arg cameraOffsetZ)"/>
+        <arg name="goalX" value="$(arg vehicleX)"/>
+        <arg name="goalY" value="$(arg vehicleY)"/>
+    </include>
+
+
+    <include file="$(find rog_map_example)/launch/f1sim.launch" />
+
+    <!--
+    <include file="$(find visualization_tools)/launch/visualization_tools.launch" >
+      <arg name="world_name" value="$(arg world_name)"/>
+    </include>
+    -->
   <!-- Launch RVIZ -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find f1tenth_simulator)/launch/rviz_f1_sim.rviz" output="screen"/>
 
