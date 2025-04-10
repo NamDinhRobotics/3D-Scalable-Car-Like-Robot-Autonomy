@@ -12,7 +12,7 @@
   <arg name="gazebo_gui" default="false"/>
   <arg name="checkTerrainConn" default="false"/>
 
-  <!-- Launch a map from the maps folder-->
+  <!-- Launch a map from the maps folder -->
   <arg name="map" default="$(find f1tenth_simulator)/maps/torino.yaml"/>
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
 
