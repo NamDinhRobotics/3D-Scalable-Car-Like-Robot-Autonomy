@@ -9,9 +9,7 @@
     <param name="cell_size" value="0.1"/>
     <param name="length_x" value="100"/>
     <param name="length_y" value="100"/>
-    <!--
-    <param name="cloud_in_topic" value="/os_cloud_node/points"/>
-    -->
+
     <param name="cloud_in_topic" value="/rm_node/rog_map/occ"/>
     <!--
     <param name="frame_out" value="os1_sensor"/>

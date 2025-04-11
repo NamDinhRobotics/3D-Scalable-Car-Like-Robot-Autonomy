@@ -13,7 +13,7 @@
   <arg name="checkTerrainConn" default="false"/>
 
   <!-- Launch a map from the maps folder-->
-  <arg name="map" default="$(find f1tenth_simulator)/maps/levinelobby.yaml"/>
+  <arg name="map" default="$(find f1tenth_simulator)/maps/my_slam_map.yaml"/>
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
 
   <!-- Launch the racecar model -->
@@ -50,6 +50,21 @@
       <param name="range_min" value="0.5" />
       <param name="range_max" value="100.0" />
    </node>
+
+
+    <node pkg="f1tenth_simulator" type="pcl_to_gridmap" name="pcl_to_gridmap_node" output="screen">
+        <!-- Remap the input and output topics -->
+        <remap from="point_cloud" to="/rm_node/rog_map/occ" />
+        <remap from="custom_occupancy_map" to="/grid_map" />
+
+        <!-- Parameters for the node -->
+        <param name="map_frame" type="string" value="map" />
+        <param name="min_height" type="double" value="-1.2" />
+        <param name="max_height" type="double" value="10.2" />
+        <param name="resolution" type="double" value="0.05" />
+        <param name="grid_width" type="int" value="4000" />
+        <param name="grid_height" type="int" value="4000" />
+    </node>
 
 
   <!--

@@ -21,7 +21,7 @@ public:
         sub_odom_ = nh_.subscribe("odom_topic", 1, &PointCloudToLaserScan::odomCallback, this);
         pub_ = nh_.advertise<sensor_msgs::LaserScan>("laser_scan_topic", 1);
 
-        nh_.param("base_frame", base_frame_, std::string("base_link"));
+        nh_.param("base_frame", base_frame_, std::string("livox_frame"));
         nh_.param("min_height", min_height_, -0.1);
         nh_.param("max_height", max_height_, 0.1);
         nh_.param("angle_min", angle_min_, -M_PI);
