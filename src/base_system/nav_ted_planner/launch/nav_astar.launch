@@ -1,0 +1,34 @@
+<launch>
+  <!-- AMCL -->
+  <node pkg="amcl" type="amcl" name="amcl">
+    <remap from="scan" to="scan_cloud"/>
+    <param name="odom_frame_id" value="odom" />
+    <param name="base_frame_id" value="base_link" />
+    <param name="global_frame_id" value="map" />
+    <param name="initial_pose_x" value="0.22" />
+    <param name="initial_pose_y" value="0.22" />
+    <param name="initial_pose_a" value="0.0" />
+  </node>
+
+  <!-- Move Base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find nav_ted_planner)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find nav_ted_planner)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find nav_ted_planner)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/global_planner_params.yaml" command="load" />
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="10.0" />
+  </node>
+
+  <!-- Twist to Ackermann -->
+  <node pkg="nav_ted_planner" type="twist_to_ackermann" name="twist_to_ackerman_cmd" output="screen">
+    <param name="wheelbase" value="0.36" />
+    <param name="twist_cmd_topic" value="cmd_vel" />
+    <param name="ackermann_cmd_topic" value="ackermann_cmd" />
+    <param name="frame_id" value="odom" />
+  </node>
+</launch>

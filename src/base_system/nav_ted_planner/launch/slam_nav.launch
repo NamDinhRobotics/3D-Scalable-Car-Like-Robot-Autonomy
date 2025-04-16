@@ -1,0 +1,41 @@
+<launch>
+  <!-- Gmapping: SLAM using odometry and laser scan -->
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="scan" to="scan_cloud" />         <!-- Input laser scan -->
+    <remap from="map" to="/slam_map" />           <!-- Output map topic -->
+    <param name="odom_frame" value="odom" />
+    <param name="base_frame" value="base_link" />
+    <param name="map_frame" value="map" />
+    <param name="map_update_interval" value="5.0" />
+    <param name="maxUrange" value="10.0" />
+    <param name="maxRange" value="12.0" />
+    <param name="particles" value="100" />
+    <param name="linearUpdate" value="0.2" />
+    <param name="angularUpdate" value="0.5" />
+    <param name="delta" value="0.05" />
+  </node>
+
+
+
+  <!-- Move Base: Navigation stack
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <remap from="map" to="/slam_map" />
+    <remap from="cmd_vel" to="/nav_cmd_vel" />
+    <rosparam file="$(find nav_ted_planner)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find nav_ted_planner)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find nav_ted_planner)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find nav_ted_planner)/config/teb_local_planner_params.yaml" command="load" />
+    <param name="base_global_planner" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="10.0" />
+  </node>
+  <node pkg="nav_ted_planner" type="twist_to_ackermann" name="twist_to_ackerman_cmd" output="screen">
+    <param name="wheelbase" value="0.36" />
+    <param name="twist_cmd_topic" value="/nav_cmd_vel" />
+    <param name="ackermann_cmd_topic" value="/ackermann_cmd" />
+    <param name="frame_id" value="odom" />
+  </node>
+ -->
+
+</launch>
