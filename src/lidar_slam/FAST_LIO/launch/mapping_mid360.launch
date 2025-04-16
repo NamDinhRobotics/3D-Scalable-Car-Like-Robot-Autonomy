@@ -20,7 +20,7 @@
 	</group>
 
 	<!-- Include child launch file -->
-	<!-- <include file="$(find fast_lio)/launch/Point2Map.launch">
-	</include> -->
+        <include file="$(find fast_lio)/launch/Pointcloud2Map.launch">
+	</include>
 
 </launch>
