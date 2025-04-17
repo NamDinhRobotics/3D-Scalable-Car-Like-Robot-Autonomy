@@ -19,6 +19,7 @@ cur_map_to_odom = None
 # ANSI color codes
 GREEN = '\033[92m'
 RED = '\033[91m'
+YELLOW = '\033[93m'
 RESET = '\033[0m'
 
 def pose_to_mat(odom_msg):
@@ -73,31 +74,31 @@ def odom_callback(odom_msg):
     """Callback for odometry messages with green-colored logging."""
     global cur_odom_to_baselink
     # Log message details in green
-    rospy.loginfo(f"{GREEN}Received Odometry message:{RESET}")
-    rospy.loginfo(f"{GREEN}  Timestamp: {odom_msg.header.stamp}{RESET}")
-    rospy.loginfo(f"{GREEN}  Frame ID: {odom_msg.header.frame_id}{RESET}")
-    rospy.loginfo(f"{GREEN}  Child Frame ID: {odom_msg.child_frame_id}{RESET}")
-    rospy.loginfo(f"{GREEN}  Pose Position: x={odom_msg.pose.pose.position.x:.3f}, "
-                  f"y={odom_msg.pose.pose.position.y:.3f}, z={odom_msg.pose.pose.position.z:.3f}{RESET}")
-    rospy.loginfo(f"{GREEN}  Pose Orientation: x={odom_msg.pose.pose.orientation.x:.3f}, "
-                  f"y={odom_msg.pose.pose.orientation.y:.3f}, z={odom_msg.pose.pose.orientation.z:.3f}, "
-                  f"w={odom_msg.pose.pose.orientation.w:.3f}{RESET}")
+    # rospy.loginfo(f"{GREEN}Received Odometry message:{RESET}")
+    # rospy.loginfo(f"{GREEN}  Timestamp: {odom_msg.header.stamp}{RESET}")
+    # rospy.loginfo(f"{GREEN}  Frame ID: {odom_msg.header.frame_id}{RESET}")
+    # rospy.loginfo(f"{GREEN}  Child Frame ID: {odom_msg.child_frame_id}{RESET}")
+    # rospy.loginfo(f"{GREEN}  Pose Position: x={odom_msg.pose.pose.position.x:.3f}, "
+    #               f"y={odom_msg.pose.pose.position.y:.3f}, z={odom_msg.pose.pose.position.z:.3f}{RESET}")
+    # rospy.loginfo(f"{GREEN}  Pose Orientation: x={odom_msg.pose.pose.orientation.x:.3f}, "
+    #               f"y={odom_msg.pose.pose.orientation.y:.3f}, z={odom_msg.pose.pose.orientation.z:.3f}, "
+    #               f"w={odom_msg.pose.pose.orientation.w:.3f}{RESET}")
     with lock:
         cur_odom_to_baselink = odom_msg
 
 def map_to_odom_callback(map_to_odom_msg):
-    """Callback for map-to-odom messages with red-colored logging and /localization_lr publishing."""
+    """Callback for map-to-odom messages with YELLOW-colored logging and /localization_lr publishing."""
     global cur_map_to_odom
-    # Log message details in red
-    rospy.loginfo(f"{RED}Received map_to_odom message:{RESET}")
-    rospy.loginfo(f"{RED}  Timestamp: {map_to_odom_msg.header.stamp}{RESET}")
-    rospy.loginfo(f"{RED}  Frame ID: {map_to_odom_msg.header.frame_id}{RESET}")
-    rospy.loginfo(f"{RED}  Child Frame ID: {map_to_odom_msg.child_frame_id}{RESET}")
-    rospy.loginfo(f"{RED}  Pose Position: x={map_to_odom_msg.pose.pose.position.x:.3f}, "
-                  f"y={map_to_odom_msg.pose.pose.position.y:.3f}, z={map_to_odom_msg.pose.pose.position.z:.3f}{RESET}")
-    rospy.loginfo(f"{RED}  Pose Orientation: x={map_to_odom_msg.pose.pose.orientation.x:.3f}, "
-                  f"y={map_to_odom_msg.pose.pose.orientation.y:.3f}, z={map_to_odom_msg.pose.pose.orientation.z:.3f}, "
-                  f"w={map_to_odom_msg.pose.pose.orientation.w:.3f}{RESET}")
+    # Log message details in YELLOW
+    # rospy.loginfo(f"{YELLOW}Received map_to_odom message:{RESET}")
+    # rospy.loginfo(f"{YELLOW}  Timestamp: {map_to_odom_msg.header.stamp}{RESET}")
+    # rospy.loginfo(f"{YELLOW}  Frame ID: {map_to_odom_msg.header.frame_id}{RESET}")
+    # rospy.loginfo(f"{YELLOW}  Child Frame ID: {map_to_odom_msg.child_frame_id}{RESET}")
+    # rospy.loginfo(f"{YELLOW}  Pose Position: x={map_to_odom_msg.pose.pose.position.x:.3f}, "
+    #               f"y={map_to_odom_msg.pose.pose.position.y:.3f}, z={map_to_odom_msg.pose.pose.position.z:.3f}{RESET}")
+    # rospy.loginfo(f"{YELLOW}  Pose Orientation: x={map_to_odom_msg.pose.pose.orientation.x:.3f}, "
+    #               f"y={map_to_odom_msg.pose.pose.orientation.y:.3f}, z={map_to_odom_msg.pose.pose.orientation.z:.3f}, "
+    #               f"w={map_to_odom_msg.pose.pose.orientation.w:.3f}{RESET}")
     
     with lock:
         cur_map_to_odom = map_to_odom_msg
@@ -118,7 +119,7 @@ def map_to_odom_callback(map_to_odom_msg):
         localization_lr.header.frame_id = map_frame
         localization_lr.child_frame_id = base_frame
         pub_localization_lr.publish(localization_lr)
-        rospy.loginfo(f"{RED}Published to /localization_lr with stamp: {map_to_odom_msg.header.stamp}{RESET}")
+        # rospy.loginfo(f"{YELLOW}Published to /localization_lr with stamp: {map_to_odom_msg.header.stamp}{RESET}")
 
 if __name__ == '__main__':
     # Configuration parameters

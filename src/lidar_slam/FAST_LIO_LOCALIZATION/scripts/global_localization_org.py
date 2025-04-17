@@ -16,12 +16,6 @@ import numpy as np
 import tf
 import tf.transformations
 
-# ANSI color codes
-GREEN = '\033[92m'
-RED = '\033[91m'
-YELLOW = '\033[93m'
-RESET = '\033[0m'
-
 # Global variables to store the map, initialization state, transformation, and current sensor data
 global_map = None  # Stores the global point cloud map
 initialized = False  # Flag to indicate if the system is initialized
@@ -51,62 +45,6 @@ def msg_to_array(pc_msg):
     pc[:, 1] = pc_array['y']  # Extract y coordinates
     pc[:, 2] = pc_array['z']  # Extract z coordinates
     return pc
-
-# Performs global registration using RANSAC and FPFH features
-def global_registration(source, target, voxel_size):
-    """
-    Performs global registration between source and target point clouds using RANSAC with FPFH features.
-    Args:
-        source: Open3D point cloud (current scan)
-        target: Open3D point cloud (global map)
-        voxel_size: Voxel size for downsampling
-    Returns:
-        transformation: 4x4 transformation matrix (or identity if registration fails)
-    """
-    # Downsample point clouds
-    source_down = voxel_down_sample(source, voxel_size)
-    target_down = voxel_down_sample(target, voxel_size)
-
-    # Estimate normals for downsampled point clouds
-    radius_normal = voxel_size * 2
-    source_down.estimate_normals(
-        search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30)
-    )
-    target_down.estimate_normals(
-        search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30)
-    )
-
-    # Compute FPFH features
-    radius_feature = voxel_size * 5
-    source_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-        source_down,
-        o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100)
-    )
-    target_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-        target_down,
-        o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100)
-    )
-
-    # RANSAC-based global registration
-    distance_threshold = voxel_size * 1.5
-    result = o3d.pipelines.registration.registration_ransac_based_on_feature_matching(
-        source_down, target_down, source_fpfh, target_fpfh, True,
-        distance_threshold,
-        o3d.pipelines.registration.TransformationEstimationPointToPoint(False),
-        3,  # Number of correspondences
-        [
-            o3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength(0.9),
-            o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(distance_threshold)
-        ],
-        o3d.pipelines.registration.RANSACConvergenceCriteria(100000, 500)
-    )
-
-    if result.fitness > 0.5:  # Arbitrary threshold to ensure reasonable alignment
-        rospy.loginfo("Global registration successful with fitness: {}".format(result.fitness))
-        return result.transformation
-    else:
-        rospy.logwarn("Global registration failed with fitness: {}".format(result.fitness))
-        return np.eye(4)  # Return identity matrix if registration fails
 
 # Performs ICP registration between a scan and a map at a given scale
 def registration_at_scale(pc_scan, pc_map, initial, scale):
@@ -368,41 +306,19 @@ if __name__ == '__main__':
     rospy.logwarn('Waiting for global map......')
     initialize_global_map(rospy.wait_for_message('/map', PointCloud2))
 
-    # Wait for initial pose or perform global registration until a good localization is achieved
+    # Wait for initial pose and perform initial localization
     while not initialized:
-        rospy.logwarn('Waiting for initial pose (5s timeout)...')
-        try:
-            # Wait for initial pose with a 5-second timeout
-            pose_msg = rospy.wait_for_message('/initialpose', PoseWithCovarianceStamped, timeout=1.0)
-            initial_pose = pose_to_mat(pose_msg)  # Convert to transformation matrix
-        except rospy.ROSException:
-            # Timeout occurred, attempt global registration if scan is available
-            if cur_scan and global_map:
-                rospy.loginfo('No initial pose received, performing global registration...')
-                rospy.loginfo(f"{YELLOW}No initial pose received, performing global registration...:{RESET}")
-                initial_pose = global_registration(cur_scan, global_map, voxel_size=1.0)  # Use larger voxel size for global reg
-            else:
-                rospy.logwarn('No scan received yet, retrying...')
-                rospy.loginfo(f"{RED}No scan received yet, retrying...{RESET}")
-                continue
-
+        rospy.logwarn('Waiting for initial pose....')
+        pose_msg = rospy.wait_for_message('/initialpose', PoseWithCovarianceStamped)  # Wait for initial pose
+        initial_pose = pose_to_mat(pose_msg)  # Convert to transformation matrix
         if cur_scan:
-            if global_localization(initial_pose):  # Only set initialized if localization is successful
-                initialized = True
-            else:
-                rospy.logwarn('Localization failed, retrying for a good initial pose...')
-                rospy.loginfo(f"{YELLOW}Localization failed, retrying for a good initial pose...{RESET}")
-
-            continue
+            initialized = global_localization(initial_pose)  # Attempt initial localization
         else:
             rospy.logwarn('First scan not received!!!!!')
-            rospy.loginfo(f"{RED}First scan not received!!!!!{RESET}")
-            continue
 
     # Log successful initialization
     rospy.loginfo('')
     rospy.loginfo('Initialize successfully!!!!!!')
-    rospy.loginfo(f"{GREEN}Initialize successfully!!!!!!{RESET}")
     rospy.loginfo('')
 
     # Start periodic localization in a separate thread
