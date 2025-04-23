@@ -1,7 +1,7 @@
 <launch>
     <node pkg="octomap_server" type = "octomap_server_node" name="octomap_server">
 
-        <param name ="resolution" value="0.1" />
+        <param name ="resolution" value="0.05" />
         <param name = "frame_id" type="str" value="camera_init" />
         <param name = "sensor_model/max_range" value="1000.0" />
         <param name = "latch" value="true" />

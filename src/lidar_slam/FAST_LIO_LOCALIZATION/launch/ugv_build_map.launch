@@ -24,7 +24,7 @@
     <!-- <node pkg="fast_lio_localization" type="transform_fusion.py" name="transform_fusion" output="screen" /> -->
 
 	<!-- glbal map-->
-    <!-- <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
+    <!-- <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publisher" output="screen"
 		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=map" /> -->
 
 	<group if="$(arg rviz)">
@@ -43,5 +43,6 @@
 	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_1" args="-0.0 -0.0 0 0 0 0 body body_foot" />
 	<!-- Publish a static mapping from the lidar initial position camera_init (FAST-LIO origin) to the robot foot end initial position body_init -->
 	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_2" args="-0.0 -0.0 0 0 0 0 camera_init robot_foot_init" />
+	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_3" args="-0.0 -0.0 0 0 0 0 robot_foot_init map" />
 
 </launch>
