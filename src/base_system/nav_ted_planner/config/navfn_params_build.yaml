@@ -1,0 +1,3 @@
+NavfnROS:
+  allow_unknown: true  # Allow planning through unknown space
+  visualize_potential: false  # Debug option to visualize potential field

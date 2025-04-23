@@ -1,0 +1,8 @@
+GlobalPlanner:
+  use_dijkstra: false          # Use Dijkstra’s (true) or A* (false)
+  use_quadratic: true         # Use quadratic cost function for smoother paths
+  use_grid_path: false        # If true, produces grid-aligned paths; if false, smoother paths
+  old_navfn_behavior: false   # Compatibility with older Navfn behavior
+  lethal_cost: 253            # Cost threshold for obstacles
+  neutral_cost: 50            # Cost of free space
+  cost_factor: 0.55           # Multiplier for path cost calculation

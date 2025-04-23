@@ -1,0 +1,28 @@
+TebLocalPlannerROS:
+  odom_topic: /Odometry
+  map_frame: /prior_map
+
+  # Robot
+  max_vel_x: 1.5
+  max_vel_x_backwards: 0.2
+  max_vel_theta: 1.0
+  acc_lim_x: 0.5
+  acc_lim_theta: 0.5
+  min_turning_radius: 0.62
+  wheelbase: 0.36  # Matches your twist_to_ackermann
+  footprint_model:
+    type: "polygon"
+    vertices: [[-0.35, -0.2], [-0.35, 0.2], [0.35, 0.2], [0.35, -0.2]]  # 0.7m x 0.4m
+
+  # Goal tolerance
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+  free_goal_vel: false
+
+  # Obstacle avoidance
+  min_obstacle_dist: 0.7  # Matches inflation_radius
+
+  # Trajectory
+  dt_ref: 0.3
+  dt_hysteresis: 0.1
+  max_global_plan_lookahead_dist: 1.0

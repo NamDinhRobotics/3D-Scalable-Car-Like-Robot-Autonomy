@@ -1,0 +1,22 @@
+DWAPlannerROS:
+  # Robot configuration
+  max_vel_x: 1.0
+  min_vel_x: -0.2
+  max_vel_theta: 1.0
+  min_vel_theta: -1.0
+  acc_lim_x: 0.5
+  acc_lim_theta: 0.5
+
+  # Goal tolerance
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+
+  # Forward simulation
+  sim_time: 1.5          # Seconds to simulate trajectories
+  vx_samples: 20         # Number of velocity samples
+  vtheta_samples: 40     # Number of angular velocity samples
+
+  # Scoring
+  path_distance_bias: 32.0
+  goal_distance_bias: 24.0
+  occdist_scale: 0.01
